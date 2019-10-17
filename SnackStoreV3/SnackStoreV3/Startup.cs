@@ -27,8 +27,10 @@ namespace SnackStoreV3
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            //agrego swagger documentacion
 
+            var connectionString = Configuration.GetConnectionString("SnackStoreConnection");
+            services.AddDbContext<StoreDbContext>(opt => opt.UseSqlServer(connectionString));
+            //agrego swagger documentacion
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info {
