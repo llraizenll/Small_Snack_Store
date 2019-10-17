@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SnackStoreV3.Repository;
 
@@ -15,9 +16,10 @@ namespace SnackStoreV3
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
-            var host = CreateWebHostBuilder(args);
-            using (var serviceScope = host..CreateScope())
+           // CreateWebHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+
+            using (var serviceScope = host.Services.CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<StoreDbContext>();
                 context.Database.EnsureDeleted();
@@ -29,7 +31,7 @@ namespace SnackStoreV3
 
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+        public static IWebHostBuilder CreateHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();
     }
