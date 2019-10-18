@@ -17,21 +17,17 @@ namespace SnackStoreV3
         public static void Main(string[] args)
         {
            // CreateWebHostBuilder(args).Build().Run();
-            var host = CreateHostBuilder(args).Build();
+            var hostBuilder = CreateHostBuilder(args).Build();
 
-            using (var serviceScope = host.Services.CreateScope())
+            using (var serviceScope = hostBuilder.Services.CreateScope())
             {
                 var services = serviceScope.ServiceProvider;
                 var context=services.GetRequiredService<StoreDbContext>();
 
                 DataGenerator.Initialize(services);
 
-                //context.Database.EnsureDeleted();
-                //context.Database.EnsureCreated();
-              
-                //context.SaveChanges();
             }
-            host.Run();
+            hostBuilder.Run();
 
         }
 

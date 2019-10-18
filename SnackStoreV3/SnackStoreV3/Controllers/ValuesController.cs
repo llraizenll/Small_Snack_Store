@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SnackStoreV3.Domain.Interfaces;
 using SnackStoreV3.Repository;
 using SnackStoreV3.Repository.DTO;
 
@@ -13,41 +14,51 @@ namespace SnackStoreV3.Controllers
     public class ValuesController : ControllerBase
     {
         private StoreDbContext _context;
-
-        public ValuesController(StoreDbContext context)
+        private ISnackRepository _repoSnack;
+        public ValuesController(StoreDbContext context, ISnackRepository repoSnack)
         {
             _context = context;
+            _repoSnack = repoSnack;
         }
-      
+
         [HttpGet]
         public async Task<IActionResult> Product()
         {
-            var data = _context.Snack.ToList();
-            return Ok(data.Select(a => new SnackDTO
+            //var data = _repoSnack.GetAllSnacks();
+            var result = await _repoSnack.GetAllSnacks(new PaginationDTO
+            {
+            //    PageNumber = item.PageNumber,
+            //    PageSize = item.PageSize,
+            //    SortBy = item.SortBy.ToString(),
+            //    Order = item.Order.ToString()
+            });
+            return Ok(result.Select(a => new SnackDTO
             {
                 snackId = a.likingSnack,
                 nameSnack = a.nameSnack,
                 priceSnack = a.priceSnack,
                 likingSnack = a.likingSnack
             }));
-            
+
         }
-        // GET api/values/5
-        [HttpGet]
-        [Route("Snack")]
-        public ActionResult<string> GetProductByName([FromQuery] string name)
-        {
-            var data = _context.Snack.Where(x=>x.nameSnack==name);
-            if (data == null) return NotFound();
-            else
-                return Ok(data.Select(a => new SnackDTO
-            {
-                snackId = a.likingSnack,
-                nameSnack = a.nameSnack,
-                priceSnack = a.priceSnack,
-                likingSnack = a.likingSnack
-            }));
-        }
+
+
+        //[HttpGet]
+        //[Route("Snack")]
+        //public ActionResult<string> GetProductByName([FromQuery] string name)
+        //{
+
+        //    var data = _context.Snack.GetProductByName(x=>x.nameSnack==name);
+        //    if (data == null) return NotFound();
+        //    else
+        //        return Ok(data.Select(a => new SnackDTO
+        //    {
+        //        snackId = a.likingSnack,
+        //        nameSnack = a.nameSnack,
+        //        priceSnack = a.priceSnack,
+        //        likingSnack = a.likingSnack
+        //    }));
+        //}
 
         // POST api/values
         [HttpPost]
