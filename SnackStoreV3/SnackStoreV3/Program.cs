@@ -21,11 +21,15 @@ namespace SnackStoreV3
 
             using (var serviceScope = host.Services.CreateScope())
             {
-                var context = serviceScope.ServiceProvider.GetRequiredService<StoreDbContext>();
-                context.Database.EnsureDeleted();
-                context.Database.EnsureCreated();
+                var services = serviceScope.ServiceProvider;
+                var context=services.GetRequiredService<StoreDbContext>();
+
+                DataGenerator.Initialize(services);
+
+                //context.Database.EnsureDeleted();
+                //context.Database.EnsureCreated();
               
-                context.SaveChanges();
+                //context.SaveChanges();
             }
             host.Run();
 

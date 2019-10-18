@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SnackStoreV3.Repository.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SnackStoreV3.Repository
 {
@@ -19,5 +21,11 @@ namespace SnackStoreV3.Repository
             return _dbContext;
         }
 
+
+        public async Task<Snack>  GetProductByName(string name)
+        {
+            return _dbContext.Snack.Where(x => x.name == name);
+
+        }
     }
 }

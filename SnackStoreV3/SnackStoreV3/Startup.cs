@@ -31,7 +31,9 @@ namespace SnackStoreV3
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             var connectionString = Configuration.GetConnectionString("SnackStoreConnection");
-            services.AddDbContext<StoreDbContext>(opt => opt.UseSqlServer(connectionString));
+            //services.AddDbContext<StoreDbContext>(opt => opt.UseSqlServer(connectionString));
+            services.AddDbContext<StoreDbContext>(opt => opt.UseInMemoryDatabase("SnackStore"));
+
             //agrego swagger documentacion
             services.AddSwaggerGen(c =>
             {

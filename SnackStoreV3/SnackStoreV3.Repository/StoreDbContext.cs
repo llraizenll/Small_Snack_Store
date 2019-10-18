@@ -8,7 +8,7 @@ namespace SnackStoreV3.Repository
 {
    public  class StoreDbContext:DbContext
     {
-        DbSet<Snack> Snack { get; set; }
+      public  DbSet<Snack> Snack { get; set; }
         public StoreDbContext(DbContextOptions<StoreDbContext> options) : base(options)
         {
 
