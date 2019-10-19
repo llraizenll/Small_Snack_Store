@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +13,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using SnackStoreV3.Commons;
 using SnackStoreV3.Domain.Interfaces;
 using SnackStoreV3.Domain.Models;
 using SnackStoreV3.Repository;
@@ -37,10 +40,15 @@ namespace SnackStoreV3
             var connectionString = Configuration.GetConnectionString("SnackStoreConnection");
             //services.AddDbContext<StoreDbContext>(opt => opt.UseSqlServer(connectionString));
             services.AddDbContext<StoreDbContext>(opt => opt.UseInMemoryDatabase("SnackStore"));
+       
             services.AddScoped<ISnackRepository, SnackRepository>();
+            services.AddScoped<IUserAccountRepository, UserAccountRepository>();
+            services.AddSingleton<ItokenFactory, JwtFactory>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<IValidator<SnackModel>, EntityToValidateValidator>();
+            services.AddHttpContextAccessor();
+
             //agrego swagger documentacion
             services.AddSwaggerGen(c =>
             {
@@ -58,6 +66,19 @@ namespace SnackStoreV3
                 }); 
                 
             });
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    var signingKey = Convert.FromBase64String(Configuration["Jwt:SigningSecret"]);
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(signingKey)
+                    };
+                });
 
 
         }

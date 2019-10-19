@@ -48,7 +48,7 @@ namespace SnackStoreV3.Repository
         public async Task CreateSnack(SnackModel snack)
         {
            
-            AddSnack(snack);
+            Add(snack);
             await SaveAsync();
            
         }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SnackStoreV3.Domain.Models;
+using SnackStoreV3.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -101,10 +102,35 @@ namespace SnackStoreV3.Repository
 
                         }
                     );
+
+                context.UserAccountsDbSet.AddRange(
+                     new UserAccounts
+                     {
+                         UserName = "admin",
+                         Password = "admin01".ToSha256(),
+                         Role = Role.Admin
+
+                     },
+                      new UserAccounts
+                      {
+                          UserName = "user",
+                          Password = "user01".ToSha256(),
+                          Role = Role.User
+
+                      }
+
+                 );
+
                 context.SaveChanges();
+
+
+
             }
+
+
+      
         }
-            
-        
+
+
     }
 }

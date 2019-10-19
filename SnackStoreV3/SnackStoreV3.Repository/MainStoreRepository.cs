@@ -29,9 +29,9 @@ namespace SnackStoreV3.Repository
             return _dataSet.Where(parameter);
         }
 
-        public void AddSnack(TClass snack)
+        public void Add(TClass obj)
         {
-            _dataSet.Add(snack);
+            _dataSet.Add(obj);
           
         }
         public async Task SaveAsync()

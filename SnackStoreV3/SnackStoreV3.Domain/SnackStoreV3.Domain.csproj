@@ -13,4 +13,8 @@
     <ProjectReference Include="..\SnackStoreV3.Models\SnackStoreV3.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UserProfiles\" />
+  </ItemGroup>
+
 </Project>
