@@ -16,19 +16,16 @@ namespace SnackStoreV3.Repository
         {
             _dataSet = dbContext.Set<TClass>();
         }
-       public IQueryable<TClass> GetAllData()
+
+
+        public IQueryable<TClass> GetAllData()
         {
             return _dataSet;
         }
 
-        public IQueryable<TClass> FindAll()
+        public IQueryable<TClass> GetByParameter(Expression<Func<TClass, bool>> parameter)
         {
-            return _dataSet;
-        }
-
-        public IQueryable<TClass> FindByCondition(Expression<Func<TClass, bool>> expression)
-        {
-            return _dataSet.Where(expression);
+            return _dataSet.Where(parameter);
         }
 
 

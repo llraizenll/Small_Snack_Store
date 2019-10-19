@@ -26,42 +26,42 @@ namespace SnackStoreV3.Controllers
         [HttpGet]
         public async Task<IActionResult> Product([FromQuery]GetProductsDto item = null)
         {
-            item = item ?? new GetProductsDto();
-            //var data = _repoSnack.GetAllSnacks();
-            var result = await _repoSnack.GetAllProductsChunk(new PaginationDTO
+            if( item == null ) item= new GetProductsDto();          
+            var result = await _repoSnack.GetAllSnacksPagination(new PaginationDTO
             {
                 PageNumber = item.PageNumber,
                 PageSize = item.PageSize,
                 SortBy = item.SortBy.ToString(),
                 Order = item.Order.ToString()
             });
-            return Ok(result.Select(a => new GetProductsResponseDto
+            return Ok(result.Select(x => new GetProductsResponseDto
             {
-                Id = a.snackId,
-                Name = a.snackName,
-                Price = a.snackPrice,
-                Likes = a.snackLikes
+                Id = x.snackId,
+                Name = x.snackName,
+                Price = x.snackPrice,
+                Likes = x.snackLikes
             }));
 
         }
 
 
-        //[HttpGet]
-        //[Route("Snack")]
-        //public ActionResult<string> GetProductByName([FromQuery] string name)
-        //{
+        [HttpGet]
+        [Route("Snack")]
+        public async Task<IActionResult> GetSnackByName ([FromQuery] string name)
+        {
 
-        //    var data = _context.Snack.GetProductByName(x=>x.nameSnack==name);
-        //    if (data == null) return NotFound();
-        //    else
-        //        return Ok(data.Select(a => new SnackDTO
-        //    {
-        //        snackId = a.likingSnack,
-        //        nameSnack = a.nameSnack,
-        //        priceSnack = a.priceSnack,
-        //        likingSnack = a.likingSnack
-        //    }));
-        //}
+            var data = await _repoSnack.GetSnackByName(name);
+            if (data == null) return NotFound();
+            else
+                return Ok(new GetProductsResponseDto
+                {
+                    Id = data.snackId,
+                    Name = data.snackName,
+                    Likes = data.snackLikes,
+                    Price = data.snackPrice,
+                    Stock = data.SnackQuantity,
+                });
+        }
 
         // POST api/values
         [HttpPost]

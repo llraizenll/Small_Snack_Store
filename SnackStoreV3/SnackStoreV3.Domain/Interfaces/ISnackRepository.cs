@@ -10,11 +10,11 @@ namespace SnackStoreV3.Domain.Interfaces
 {
  public  interface ISnackRepository : IMainRepository<SnackModel>
     {
-      // Task<IEnumerable<SnackModel>> GetAllSnacks();
-        //  SnackModel GetSnacksByName();
+ 
 
-        Task<IEnumerable<SnackModel>> GetAllProducts();
-        Task<IEnumerable<SnackModel>> GetAllProductsChunk(PaginationDTO pagination);
+        Task<IEnumerable<SnackModel>> GetAllSnacks();
+        Task<IEnumerable<SnackModel>> GetAllSnacksPagination(PaginationDTO pagination);
 
+        Task<SnackModel> GetSnackByName(string name);
     }
 }

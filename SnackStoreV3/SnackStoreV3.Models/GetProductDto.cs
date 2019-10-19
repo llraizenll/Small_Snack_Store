@@ -8,7 +8,7 @@ namespace SnackStoreV3.Models
     public class GetProductsDto
     {
         public int PageNumber { get; set; } = 1;
-        public int PageSize { get; set; } = 20;
+        public int PageSize { get; set; } = 10;
         public Sorter SortBy { get; set; } = Sorter.snackName;
         public Order Order { get; set; } = Order.Asc;
     }

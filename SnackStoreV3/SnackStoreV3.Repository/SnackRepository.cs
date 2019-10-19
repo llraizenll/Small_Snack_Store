@@ -22,23 +22,28 @@ namespace SnackStoreV3.Repository
         }
 
 
-        public async Task<IEnumerable<SnackModel>> GetAllProducts()
+        public async Task<IEnumerable<SnackModel>> GetAllSnacks()
         {
-            return await FindAll().OrderBy(a => a.snackName).ToListAsync();
+            return await GetAllData().OrderBy(a => a.snackName).ToListAsync();
         }
 
-        public async Task<IEnumerable<SnackModel>> GetAllProductsChunk(PaginationDTO pagination)
+        public async Task<IEnumerable<SnackModel>> GetAllSnacksPagination(PaginationDTO pagination)
         {
             IQueryable<SnackModel> query;
             var property = TypeDescriptor.GetProperties(typeof(SnackModel)).Find(pagination.SortBy, true);
-            if (pagination.Order == "Desc")            
-                query = FindAll().OrderByDescending(a => property.GetValue(a));            
-            else            
-                query = FindAll().OrderBy(a => property.GetValue(a));            
+            if (pagination.Order == "Asc")
+                query = GetAllData().OrderBy(a => property.GetValue(a));         
+            else
+                query = GetAllData().OrderByDescending(a => property.GetValue(a));
             return await query
                 .Skip((pagination.PageNumber - 1) * pagination.PageSize)
                 .Take(pagination.PageSize)
                 .ToListAsync();
+        }
+
+        public async Task<SnackModel> GetSnackByName(string name)
+        {
+            return await GetAllData().Where(x => x.snackName == name).FirstOrDefaultAsync();
         }
 
     }
