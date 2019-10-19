@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using SnackStoreV3.Domain.Interfaces;
 using SnackStoreV3.Repository;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -28,11 +29,14 @@ namespace SnackStoreV3
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+           
 
             var connectionString = Configuration.GetConnectionString("SnackStoreConnection");
             //services.AddDbContext<StoreDbContext>(opt => opt.UseSqlServer(connectionString));
             services.AddDbContext<StoreDbContext>(opt => opt.UseInMemoryDatabase("SnackStore"));
+            services.AddScoped<ISnackRepository, SnackRepository>();
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             //agrego swagger documentacion
             services.AddSwaggerGen(c =>

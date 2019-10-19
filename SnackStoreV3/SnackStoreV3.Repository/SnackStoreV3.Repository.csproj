@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SnackStoreV3.Domain\SnackStoreV3.Domain.csproj" />
+    <ProjectReference Include="..\SnackStoreV3.Models\SnackStoreV3.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>

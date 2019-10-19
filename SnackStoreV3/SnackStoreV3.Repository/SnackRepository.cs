@@ -5,6 +5,10 @@ using SnackStoreV3.Domain.Models;
 using SnackStoreV3.Domain.Interfaces;
 using System.Threading.Tasks;
 
+using System.ComponentModel;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using SnackStoreV3.Models;
 
 namespace SnackStoreV3.Repository
 {
@@ -17,12 +21,23 @@ namespace SnackStoreV3.Repository
             _context = context;
         }
 
-        public async Task<IEnumerable<SnackModel>> GetAllSnacks()
-        {
 
-            return await GetAllData();  //return await GetAllSnacks();
+        public async Task<IEnumerable<SnackModel>> GetAllProducts()
+        {
+            return await FindAll().OrderBy(a => a.nameSnack).ToListAsync();
         }
-      //  SnackModel GetSnacksByName();
+
+        public async Task<IEnumerable<SnackModel>> GetAllProductsChunk(PaginationDTO pagination)
+        {
+            var property = TypeDescriptor.GetProperties(typeof(SnackModel)).Find(pagination.SortBy, true);
+            var query = pagination.Order == "Desc"
+                ? FindAll().OrderByDescending(a => property.GetValue(a))
+                : FindAll().OrderBy(a => property.GetValue(a));
+            return await query
+                .Skip((pagination.PageNumber - 1) * pagination.PageSize)
+                .Take(pagination.PageSize)
+                .ToListAsync();
+        }
 
     }
 }

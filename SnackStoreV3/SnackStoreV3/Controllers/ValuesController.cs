@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SnackStoreV3.Domain.Interfaces;
+
+using SnackStoreV3.Models;
 using SnackStoreV3.Repository;
 using SnackStoreV3.Repository.DTO;
 
@@ -22,15 +24,16 @@ namespace SnackStoreV3.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Product()
+        public async Task<IActionResult> Product([FromQuery]GetProductsDto item = null)
         {
+            item = item ?? new GetProductsDto();
             //var data = _repoSnack.GetAllSnacks();
-            var result = await _repoSnack.GetAllSnacks(new PaginationDTO
+            var result = await _repoSnack.GetAllProductsChunk(new PaginationDTO
             {
-            //    PageNumber = item.PageNumber,
-            //    PageSize = item.PageSize,
-            //    SortBy = item.SortBy.ToString(),
-            //    Order = item.Order.ToString()
+                //PageNumber = item.PageNumber,
+                //PageSize = item.PageSize,
+                //SortBy = item.SortBy.ToString(),
+                //Order = item.Order.ToString()
             });
             return Ok(result.Select(a => new SnackDTO
             {

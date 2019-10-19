@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SnackStoreV3.Repository.DTO
+namespace SnackStoreV3.Models
 {
   public  class PaginationDTO
     {

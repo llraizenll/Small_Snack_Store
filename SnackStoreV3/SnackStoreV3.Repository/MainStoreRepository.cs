@@ -21,12 +21,21 @@ namespace SnackStoreV3.Repository
             return _dataSet;
         }
 
-       
-
-        public IQueryable<TClass> GetByParameter(Expression<Func<TClass, bool>> parameter)
+        public IQueryable<TClass> FindAll()
         {
-            return _dataSet.Where(parameter);
+            return _dataSet;
         }
+
+        public IQueryable<TClass> FindByCondition(Expression<Func<TClass, bool>> expression)
+        {
+            return _dataSet.Where(expression);
+        }
+
+
+        //public IQueryable<TClass> GetByParameter(Expression<Func<TClass, bool>> parameter)
+        //{
+        //    return _dataSet.Where(parameter);
+        //}
         //void Create(TClass entity);
         //void Update(TClass entity);
         //void Delete(TClass entity);
