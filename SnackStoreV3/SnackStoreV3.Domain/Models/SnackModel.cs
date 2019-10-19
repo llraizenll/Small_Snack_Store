@@ -13,9 +13,9 @@ namespace SnackStoreV3.Domain.Models
         public int snackId { get; set; }
         [Required]
         [MaxLength(50)]
-        public string nameSnack { get; set; }
+        public string snackName { get; set; }
 
-        public double priceSnack { get; set; }
+        public double snackLikes { get; set; }
         public int likingSnack { get; set; }
     }
 

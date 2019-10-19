@@ -9,13 +9,13 @@ namespace SnackStoreV3.Models
     {
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 20;
-        public Sorter SortBy { get; set; } = Sorter.Name;
+        public Sorter SortBy { get; set; } = Sorter.snackName;
         public Order Order { get; set; } = Order.Asc;
     }
     public enum Sorter
     {
-        Name = 0,
-        Likes = 1
+        snackName = 0,
+        snackLikes = 1
     }
 
     public enum Order

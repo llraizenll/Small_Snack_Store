@@ -22,20 +22,20 @@ namespace SnackStoreV3.Repository
                 context.SnackDbSet.AddRange(
                     new SnackModel
                     {
-                        nameSnack = "Candy",
-                        priceSnack = 10,
+                        snackName = "Candy",
+                        snackLikes = 10,
                         likingSnack = 20,
                     },
                         new SnackModel
                         {
-                            nameSnack = "Lolipop",
-                            priceSnack = 5,
+                            snackName = "Lolipop",
+                            snackLikes = 5,
                             likingSnack = 15,
                         },
                         new SnackModel
                         {
-                            nameSnack = "Chocolate",
-                            priceSnack = 2,
+                            snackName = "Chocolate",
+                            snackLikes = 2,
                             likingSnack = 40,
                         }
                     );
