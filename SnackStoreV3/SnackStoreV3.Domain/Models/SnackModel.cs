@@ -16,7 +16,7 @@ namespace SnackStoreV3.Domain.Models
         public string snackName { get; set; }
         public int snackLikes { get;  set; }
         public double snackPrice { get; set; }
-        public int SnackQuantity{ get;  set; }
+        public int snackQuantity{ get;  set; }
 
     }
 

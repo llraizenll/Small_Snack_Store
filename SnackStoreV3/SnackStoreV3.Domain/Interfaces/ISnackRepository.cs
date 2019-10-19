@@ -16,5 +16,7 @@ namespace SnackStoreV3.Domain.Interfaces
         Task<IEnumerable<SnackModel>> GetAllSnacksPagination(PaginationDTO pagination);
 
         Task<SnackModel> GetSnackByName(string name);
+
+        Task CreateSnack(SnackModel product);
     }
 }

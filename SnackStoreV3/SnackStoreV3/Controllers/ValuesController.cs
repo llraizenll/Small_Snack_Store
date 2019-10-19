@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SnackStoreV3.Domain.Interfaces;
-
+using SnackStoreV3.Domain.Models;
 using SnackStoreV3.Models;
 using SnackStoreV3.Repository;
 using SnackStoreV3.Repository.DTO;
@@ -59,14 +59,23 @@ namespace SnackStoreV3.Controllers
                     Name = data.snackName,
                     Likes = data.snackLikes,
                     Price = data.snackPrice,
-                    Stock = data.SnackQuantity,
+                    Stock = data.snackQuantity,
                 });
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post(CreateSnackDTO obj)
         {
+            var newSnack= new SnackModel()
+            {
+                snackName = obj.name,               
+                snackPrice = obj.price,
+                snackQuantity = obj.quantity,
+            };
+             await _repoSnack.CreateSnack(newSnack);            
+             return Ok();
+
         }
 
         // PUT api/values/5

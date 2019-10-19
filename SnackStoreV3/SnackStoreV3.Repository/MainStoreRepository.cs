@@ -10,10 +10,11 @@ namespace SnackStoreV3.Repository
 {
     public class MainStoreRepository <TClass> where TClass : class
     {
-       // StoreDbContext _dbContext;
+        StoreDbContext _dbContext;
         protected readonly DbSet<TClass> _dataSet;
         public MainStoreRepository(StoreDbContext dbContext)
         {
+            _dbContext = dbContext;
             _dataSet = dbContext.Set<TClass>();
         }
 
@@ -28,6 +29,15 @@ namespace SnackStoreV3.Repository
             return _dataSet.Where(parameter);
         }
 
+        public void AddSnack(TClass snack)
+        {
+            _dataSet.Add(snack);
+          
+        }
+        public async Task SaveAsync()
+        {
+           await _dbContext.SaveChangesAsync();
+        }
 
         //public IQueryable<TClass> GetByParameter(Expression<Func<TClass, bool>> parameter)
         //{

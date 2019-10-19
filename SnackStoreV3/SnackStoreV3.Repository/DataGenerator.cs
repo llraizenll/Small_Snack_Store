@@ -24,7 +24,7 @@ namespace SnackStoreV3.Repository
                     {
                         snackName = "Candy",
                         snackPrice  = 10.5,                      
-                        SnackQuantity=2,
+                        snackQuantity=2,
                         snackLikes=10
 
                     },
@@ -32,7 +32,7 @@ namespace SnackStoreV3.Repository
                         {
                             snackName = "Lolipop",
                             snackPrice = 1.5,
-                            SnackQuantity = 4,
+                            snackQuantity = 4,
                             snackLikes = 4
 
                         },
@@ -40,7 +40,7 @@ namespace SnackStoreV3.Repository
                         {
                             snackName = "PopTart",
                             snackPrice = 1.2,
-                            SnackQuantity = 20,
+                            snackQuantity = 20,
                             snackLikes = 4
 
                         },
@@ -48,7 +48,7 @@ namespace SnackStoreV3.Repository
                         {
                             snackName = "Peanuts",
                             snackPrice = 1.2,
-                            SnackQuantity = 20,
+                            snackQuantity = 20,
                             snackLikes = 7
 
                         },
@@ -56,7 +56,7 @@ namespace SnackStoreV3.Repository
                         {
                             snackName = "Cookies",
                             snackPrice = 4.2,
-                            SnackQuantity = 12,
+                            snackQuantity = 12,
                             snackLikes = 2
 
                         },
@@ -64,7 +64,7 @@ namespace SnackStoreV3.Repository
                         {
                             snackName = "Gum",
                             snackPrice = 3.2,
-                            SnackQuantity = 20,
+                            snackQuantity = 20,
                             snackLikes = 80
 
                         },
@@ -72,7 +72,7 @@ namespace SnackStoreV3.Repository
                         {
                             snackName = "Dorito",
                             snackPrice = 2.5,
-                            SnackQuantity = 2,
+                            snackQuantity = 2,
                             snackLikes = 24
 
                         },
@@ -80,7 +80,7 @@ namespace SnackStoreV3.Repository
                         {
                             snackName = "Cheese",
                             snackPrice = 4.5,
-                            SnackQuantity = 14,
+                            snackQuantity = 14,
                             snackLikes = 40
 
                         },
@@ -88,7 +88,7 @@ namespace SnackStoreV3.Repository
                         {
                             snackName = "Lays",
                             snackPrice =.85,
-                            SnackQuantity = 10,
+                            snackQuantity = 10,
                             snackLikes = 17
 
                         },
@@ -96,7 +96,7 @@ namespace SnackStoreV3.Repository
                         {
                             snackName = "Pizza",
                             snackPrice = 2.5,
-                            SnackQuantity = 14,
+                            snackQuantity = 14,
                             snackLikes = 40
 
                         }

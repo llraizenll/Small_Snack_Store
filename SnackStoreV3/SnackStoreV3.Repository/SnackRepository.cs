@@ -45,6 +45,15 @@ namespace SnackStoreV3.Repository
         {
             return await GetAllData().Where(x => x.snackName == name).FirstOrDefaultAsync();
         }
+        public async Task CreateSnack(SnackModel snack)
+        {
+            if (string.IsNullOrEmpty(snack.snackName) || snack.snackPrice > 0 || snack.snackQuantity > 0)
+            {
+                AddSnack(snack);
+                await SaveAsync();
+            }
+            else return;
+        }
 
     }
 }

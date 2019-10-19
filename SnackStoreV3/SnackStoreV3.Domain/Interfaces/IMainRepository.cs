@@ -11,11 +11,12 @@ namespace SnackStoreV3.Domain.Interfaces
 
         IQueryable<TClass> GetAllData();
         IQueryable<TClass> GetByParameter(Expression<Func<TClass, bool>> expression);
-        //void Create(TClass entity);
+        void AddSnack(TClass snack);
+        Task SaveAsync();
         //void Update(TClass entity);
         //void Delete(TClass entity);
 
-       // IQueryable<TClass> GetAllData();
-      //  IQueryable<TClass> GetByParameter(Expression<Func<TClass, bool>> parameter);
+        // IQueryable<TClass> GetAllData();
+        //  IQueryable<TClass> GetByParameter(Expression<Func<TClass, bool>> parameter);
     }
 }
