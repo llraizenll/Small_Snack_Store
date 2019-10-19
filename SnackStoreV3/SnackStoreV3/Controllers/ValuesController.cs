@@ -37,10 +37,10 @@ namespace SnackStoreV3.Controllers
             });
             return Ok(result.Select(a => new GetProductsResponseDto
             {
-                Id = a.likingSnack,
+                Id = a.snackId,
                 Name = a.snackName,
-                Price = a.snackLikes,
-                Likes = a.likingSnack
+                Price = a.snackPrice,
+                Likes = a.snackLikes
             }));
 
         }

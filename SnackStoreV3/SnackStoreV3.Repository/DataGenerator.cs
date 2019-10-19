@@ -23,20 +23,82 @@ namespace SnackStoreV3.Repository
                     new SnackModel
                     {
                         snackName = "Candy",
-                        snackLikes = 10,
-                        likingSnack = 20,
+                        snackPrice  = 10.5,                      
+                        SnackQuantity=2,
+                        snackLikes=10
+
                     },
                         new SnackModel
                         {
                             snackName = "Lolipop",
-                            snackLikes = 5,
-                            likingSnack = 15,
+                            snackPrice = 1.5,
+                            SnackQuantity = 4,
+                            snackLikes = 4
+
                         },
                         new SnackModel
                         {
-                            snackName = "Chocolate",
-                            snackLikes = 2,
-                            likingSnack = 40,
+                            snackName = "PopTart",
+                            snackPrice = 1.2,
+                            SnackQuantity = 20,
+                            snackLikes = 4
+
+                        },
+                        new SnackModel
+                        {
+                            snackName = "Peanuts",
+                            snackPrice = 1.2,
+                            SnackQuantity = 20,
+                            snackLikes = 7
+
+                        },
+                        new SnackModel
+                        {
+                            snackName = "Cookies",
+                            snackPrice = 4.2,
+                            SnackQuantity = 12,
+                            snackLikes = 2
+
+                        },
+                        new SnackModel
+                        {
+                            snackName = "Gum",
+                            snackPrice = 3.2,
+                            SnackQuantity = 20,
+                            snackLikes = 80
+
+                        },
+                        new SnackModel
+                        {
+                            snackName = "Dorito",
+                            snackPrice = 2.5,
+                            SnackQuantity = 2,
+                            snackLikes = 24
+
+                        },
+                        new SnackModel
+                        {
+                            snackName = "Cheese",
+                            snackPrice = 4.5,
+                            SnackQuantity = 14,
+                            snackLikes = 40
+
+                        },
+                        new SnackModel
+                        {
+                            snackName = "Lays",
+                            snackPrice =.85,
+                            SnackQuantity = 10,
+                            snackLikes = 17
+
+                        },
+                        new SnackModel
+                        {
+                            snackName = "Pizza",
+                            snackPrice = 2.5,
+                            SnackQuantity = 14,
+                            snackLikes = 40
+
                         }
                     );
                 context.SaveChanges();

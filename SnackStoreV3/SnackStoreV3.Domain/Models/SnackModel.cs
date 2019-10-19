@@ -12,11 +12,12 @@ namespace SnackStoreV3.Domain.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int snackId { get; set; }
         [Required]
-        [MaxLength(50)]
+        [MaxLength(20)]
         public string snackName { get; set; }
+        public int snackLikes { get;  set; }
+        public double snackPrice { get; set; }
+        public int SnackQuantity{ get;  set; }
 
-        public double snackLikes { get; set; }
-        public int likingSnack { get; set; }
     }
 
 
