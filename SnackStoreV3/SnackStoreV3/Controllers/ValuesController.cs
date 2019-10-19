@@ -118,7 +118,14 @@ namespace SnackStoreV3.Controllers
 
         }
 
+        //[HttpPut]  
+        //[Route("buy/{id}")]
+        //public async Task<IActionResult> Buy(int id, [FromQuery]int quantity)
+        //{
+        //    var product = await _repoSnack.GetSnacksById(id);
+        //    if (product == null) return NotFound();
 
+           
 
 
 

@@ -47,12 +47,10 @@ namespace SnackStoreV3.Repository
         }
         public async Task CreateSnack(SnackModel snack)
         {
-            if (string.IsNullOrEmpty(snack.snackName) || snack.snackPrice > 0 || snack.snackQuantity > 0)
-            {
-                AddSnack(snack);
-                await SaveAsync();
-            }
-            else return;
+           
+            AddSnack(snack);
+            await SaveAsync();
+           
         }
         public async Task<SnackModel> GetSnacksById(int id)
         {
