@@ -85,9 +85,22 @@ namespace SnackStoreV3.Controllers
         }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
         {
+            var product = await _repoSnack.GetSnacksById(id);
+            if (product == null) return NotFound();
+
+
+            await _repoSnack.DeleteSnack(product);
+            return Ok();
         }
+
+
+
+   
+       
+           
+        
     }
 }

@@ -39,6 +39,10 @@ namespace SnackStoreV3.Repository
            await _dbContext.SaveChangesAsync();
         }
 
+        public void RemoveSnack(TClass snack)
+        {
+            _dataSet.Remove(snack);
+        }
         //public IQueryable<TClass> GetByParameter(Expression<Func<TClass, bool>> parameter)
         //{
         //    return _dataSet.Where(parameter);

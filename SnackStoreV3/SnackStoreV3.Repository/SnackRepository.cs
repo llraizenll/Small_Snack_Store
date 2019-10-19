@@ -54,6 +54,15 @@ namespace SnackStoreV3.Repository
             }
             else return;
         }
+        public async Task<SnackModel> GetSnacksById(int id)
+        {
+            return await GetAllData().Where(x => x.snackId == id).FirstOrDefaultAsync();
+        }
+        public async Task DeleteSnack(SnackModel snack)
+        {
+            RemoveSnack(snack);
+            await SaveAsync();
+        }
 
     }
 }
