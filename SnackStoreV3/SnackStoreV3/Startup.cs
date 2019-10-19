@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,7 +13,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SnackStoreV3.Domain.Interfaces;
+using SnackStoreV3.Domain.Models;
 using SnackStoreV3.Repository;
+using SnackStoreV3.Validator;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace SnackStoreV3
@@ -37,7 +40,7 @@ namespace SnackStoreV3
             services.AddScoped<ISnackRepository, SnackRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+            services.AddTransient<IValidator<SnackModel>, EntityToValidateValidator>();
             //agrego swagger documentacion
             services.AddSwaggerGen(c =>
             {

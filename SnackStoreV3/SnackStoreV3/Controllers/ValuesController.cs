@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using SnackStoreV3.Domain.Interfaces;
 using SnackStoreV3.Domain.Models;
@@ -17,10 +18,12 @@ namespace SnackStoreV3.Controllers
     {
         private StoreDbContext _context;
         private ISnackRepository _repoSnack;
-        public ValuesController(StoreDbContext context, ISnackRepository repoSnack)
+        private IValidator<SnackModel> _entityToValidate;
+        public ValuesController(StoreDbContext context, ISnackRepository repoSnack, IValidator<SnackModel> entityToValidate)
         {
             _context = context;
             _repoSnack = repoSnack;
+            _entityToValidate =entityToValidate;
         }
 
         [HttpGet]
@@ -67,12 +70,23 @@ namespace SnackStoreV3.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(CreateSnackDTO obj)
         {
+            List<string> errorList = new List<string>();
             var newSnack= new SnackModel()
             {
                 snackName = obj.name,               
                 snackPrice = obj.price,
                 snackQuantity = obj.quantity,
             };
+
+            var result = _entityToValidate.Validate(newSnack);
+            if (!result.IsValid)
+            {
+                foreach(var error in result.Errors)
+                {
+                    errorList.Add(error.ToString());
+                }
+                return BadRequest(errorList);
+            }
              await _repoSnack.CreateSnack(newSnack);            
              return Ok();
 
