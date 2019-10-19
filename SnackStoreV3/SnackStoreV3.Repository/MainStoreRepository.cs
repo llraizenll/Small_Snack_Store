@@ -43,14 +43,12 @@ namespace SnackStoreV3.Repository
         {
             _dataSet.Remove(snack);
         }
-        //public IQueryable<TClass> GetByParameter(Expression<Func<TClass, bool>> parameter)
-        //{
-        //    return _dataSet.Where(parameter);
-        //}
-        //void Create(TClass entity);
-        //void Update(TClass entity);
-        //void Delete(TClass entity);
-
+      
+        public void Update(TClass snack)
+        {
+            _dataSet.Update(snack);
+        }
+   
 
 
 

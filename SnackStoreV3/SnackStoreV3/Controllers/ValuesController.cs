@@ -78,11 +78,6 @@ namespace SnackStoreV3.Controllers
 
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
         // DELETE api/values/5
         [HttpDelete]
@@ -95,12 +90,24 @@ namespace SnackStoreV3.Controllers
             await _repoSnack.DeleteSnack(product);
             return Ok();
         }
+        // PUT api/values/5
+        [HttpPut]
+        [Route("price")]
+        public async Task<IActionResult> Price([FromQuery]int id, double newPrice)
+        {
+            var product = await _repoSnack.GetSnacksById(id);
+            if (product == null) return NotFound();
+
+            
+           await _repoSnack.UpdatePriceSnack(product,newPrice);
+            return Ok();
+
+        }
 
 
 
-   
-       
-           
-        
+
+
+
     }
 }

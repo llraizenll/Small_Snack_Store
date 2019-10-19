@@ -19,6 +19,8 @@ namespace SnackStoreV3.Domain.Interfaces
 
         Task CreateSnack(SnackModel product);
         Task<SnackModel> GetSnacksById(int id);
-        Task DeleteSnack(SnackModel product);
+        Task DeleteSnack(SnackModel snack);
+
+        Task UpdatePriceSnack(SnackModel snack, double newPrice);
     }
 }

@@ -64,5 +64,19 @@ namespace SnackStoreV3.Repository
             await SaveAsync();
         }
 
+        public async Task UpdatePriceSnack(SnackModel snack, double newPrice)
+        {
+
+            if (newPrice > 0) {
+                double lastPrice = snack.snackPrice;
+                snack.snackPrice = newPrice;
+                Update(snack);
+                await SaveAsync();
+            }else
+            {
+                return;
+            }
+        }
+
     }
 }

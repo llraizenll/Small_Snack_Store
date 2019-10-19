@@ -14,11 +14,8 @@ namespace SnackStoreV3.Domain.Interfaces
         void AddSnack(TClass snack);
         Task SaveAsync();
         void RemoveSnack(TClass snack);
-        
-        //void Update(TClass entity);
-      
+        void Update(TClass snack);
+       
 
-        // IQueryable<TClass> GetAllData();
-        //  IQueryable<TClass> GetByParameter(Expression<Func<TClass, bool>> parameter);
     }
 }
