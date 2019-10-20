@@ -22,5 +22,8 @@ namespace SnackStoreV3.Domain.Interfaces
         Task DeleteSnack(SnackModel snack);
 
         Task UpdatePriceSnack(SnackModel snack, double newPrice);
+        Task UpdateSnack(SnackModel snack);
+
+
     }
 }

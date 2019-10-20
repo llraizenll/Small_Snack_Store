@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SnackStoreV3.Commons;
 using SnackStoreV3.Domain.Interfaces;
 using SnackStoreV3.Domain.Models;
 using SnackStoreV3.Dto;
@@ -23,13 +24,20 @@ namespace SnackStoreV3.Controllers
         private ISnackRepository _repoSnack;
         private ILogPriceRepository _logPrice;
         private IValidator<SnackModel> _entityToValidate;
+        private IBuySnacks _buySnacks;
+        private readonly ItokenFactory _tokenFactory;
+
+        private ILogPurchaseRepository _logPurchase;
         public ValuesController(StoreDbContext context, ISnackRepository repoSnack, IValidator<SnackModel> entityToValidate,
-            ILogPriceRepository logPrice)
+            ILogPriceRepository logPrice, IBuySnacks buySnacks, ILogPurchaseRepository logPurchase, ItokenFactory tokenFactory)
         {
             _context = context;
             _repoSnack = repoSnack;
             _entityToValidate =entityToValidate;
             _logPrice = logPrice;
+            _buySnacks =buySnacks;
+            _logPurchase = logPurchase;
+            _tokenFactory = tokenFactory;
         }
 
         [HttpGet]
@@ -48,7 +56,8 @@ namespace SnackStoreV3.Controllers
                 Id = x.snackId,
                 Name = x.snackName,
                 Price = x.snackPrice,
-                Likes = x.snackLikes
+                Likes = x.snackLikes,
+                Stock=x.snackQuantity
             }));
 
         }
@@ -148,17 +157,39 @@ namespace SnackStoreV3.Controllers
 
         }
 
-        //[HttpPut]  
-        //[Route("buy/{id}")]
-        //public async Task<IActionResult> Buy(int id, [FromQuery]int quantity)
-        //{
-        //    var product = await _repoSnack.GetSnacksById(id);
-        //    if (product == null) return NotFound();
+        [HttpPut]
+        [Route("buy/{id}")]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> Buy(int id, [FromQuery]int quantity)
+        {
+            var product = await _repoSnack.GetSnacksById(id);
+            if (product == null) return NotFound("This product doesnt exist");
+            var userNameClaim = _tokenFactory.GetUser();
+            var res =_buySnacks.BuySnacks(product, quantity);
+            await _logPurchase.SavePurchase(userNameClaim, quantity);
+            return Ok(new ResponseTokenDto
+            {
+                code = HttpStatusCode.OK,
+                userAccessToken = res.Result
 
+            });
 
+        }
+        [HttpGet]
+        [Route("GetLogPurchase")]
+        [Authorize(Roles = "User, Admin")]
+        public async Task<IActionResult> GetPurchaseLog()
+        {
 
+            var result = await _logPurchase.GetLogPurchase();
+            return Ok(new ResponseLogPurchaseDto
+            {
+                Code = HttpStatusCode.OK,
+                Data = result
 
+            });
 
+        }
 
     }
 }

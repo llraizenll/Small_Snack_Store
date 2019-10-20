@@ -25,7 +25,7 @@ namespace SnackStoreV3.Repository
                     {
                         snackName = "Candy",
                         snackPrice  = 10.5,                      
-                        snackQuantity=2,
+                        snackQuantity=10,
                         snackLikes=10
 
                     },

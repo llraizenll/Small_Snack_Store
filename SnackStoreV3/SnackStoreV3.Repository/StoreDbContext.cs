@@ -12,7 +12,7 @@ namespace SnackStoreV3.Repository
       public DbSet<UserAccounts> UserAccountsDbSet { get; set; }
 
       public DbSet<LogChangePricesModel> LogChangePrices { get; set; }
-      //public DbSet<LogPurchaceModel> LogPurchaces { get; set; }
+      public DbSet<LogPurchaceModel> LogPurchaces { get; set; }
 
         public StoreDbContext(DbContextOptions<StoreDbContext> options) : base(options)
         {

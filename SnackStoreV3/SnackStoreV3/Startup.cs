@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 using SnackStoreV3.Commons;
 using SnackStoreV3.Domain.Interfaces;
 using SnackStoreV3.Domain.Models;
+using SnackStoreV3.Domain.services;
 using SnackStoreV3.Repository;
 using SnackStoreV3.Validator;
 using Swashbuckle.AspNetCore.Swagger;
@@ -44,6 +45,8 @@ namespace SnackStoreV3
             services.AddScoped<ISnackRepository, SnackRepository>();
             services.AddScoped<IUserAccountRepository, UserAccountRepository>();
             services.AddScoped<ILogPriceRepository, LogPriceRepository>();
+            services.AddScoped<ILogPurchaseRepository, LogPurchaseRepository>();
+            services.AddScoped<IBuySnacks , BuySnackService>();
             services.AddSingleton<ItokenFactory, JwtFactory>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

@@ -75,5 +75,11 @@ namespace SnackStoreV3.Repository
 
         }
 
+        public async Task UpdateSnack(SnackModel snack)
+        {
+            Update(snack);
+            await SaveAsync();
+        }
+
     }
 }
