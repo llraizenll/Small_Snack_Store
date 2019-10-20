@@ -47,6 +47,7 @@ namespace SnackStoreV3
             services.AddScoped<ILogPriceRepository, LogPriceRepository>();
             services.AddScoped<ILogPurchaseRepository, LogPurchaseRepository>();
             services.AddScoped<IBuySnacks , BuySnackService>();
+            services.AddScoped<ILikeSnack, LikeSnackService>();
             services.AddSingleton<ItokenFactory, JwtFactory>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

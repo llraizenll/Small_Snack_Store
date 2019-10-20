@@ -25,11 +25,12 @@ namespace SnackStoreV3.Controllers
         private ILogPriceRepository _logPrice;
         private IValidator<SnackModel> _entityToValidate;
         private IBuySnacks _buySnacks;
+        private ILikeSnack _likeSnacks;
         private readonly ItokenFactory _tokenFactory;
 
         private ILogPurchaseRepository _logPurchase;
         public ValuesController(StoreDbContext context, ISnackRepository repoSnack, IValidator<SnackModel> entityToValidate,
-            ILogPriceRepository logPrice, IBuySnacks buySnacks, ILogPurchaseRepository logPurchase, ItokenFactory tokenFactory)
+            ILogPriceRepository logPrice, IBuySnacks buySnacks, ILogPurchaseRepository logPurchase, ItokenFactory tokenFactory, ILikeSnack likeSnacks)
         {
             _context = context;
             _repoSnack = repoSnack;
@@ -38,6 +39,7 @@ namespace SnackStoreV3.Controllers
             _buySnacks =buySnacks;
             _logPurchase = logPurchase;
             _tokenFactory = tokenFactory;
+            _likeSnacks = likeSnacks;
         }
 
         [HttpGet]
@@ -143,7 +145,7 @@ namespace SnackStoreV3.Controllers
 
         [HttpGet]
         [Route("GetLogPrices")]
-        [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetChangePriceLog()
         {
 
@@ -177,7 +179,7 @@ namespace SnackStoreV3.Controllers
         }
         [HttpGet]
         [Route("GetLogPurchase")]
-        [Authorize(Roles = "User, Admin")]
+        //[Authorize(Roles = "User, Admin")]
         public async Task<IActionResult> GetPurchaseLog()
         {
 
@@ -190,6 +192,27 @@ namespace SnackStoreV3.Controllers
             });
 
         }
+
+
+        [HttpPut]
+        [Route("Likes")]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> Likes(int id)
+        {
+            var product = await _repoSnack.GetSnacksById(id);
+            if (product == null) return NotFound("This product doesnt exist");
+            //var userNameClaim = _tokenFactory.GetUser();
+            var res = _likeSnacks.LikeSnacks(product);
+           
+            return Ok(new ResponseTokenDto
+            {
+                code = HttpStatusCode.OK,
+                userAccessToken = res.Result
+
+            });
+
+        }
+
 
     }
 }
