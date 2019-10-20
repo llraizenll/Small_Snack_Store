@@ -107,14 +107,14 @@ namespace SnackStoreV3.Repository
                      new UserAccounts
                      {
                          UserName = "admin",
-                         Password = "admin01".ToSha256(),
+                         Password = "1234".ToSha256(),
                          Role = Role.Admin
 
                      },
                       new UserAccounts
                       {
                           UserName = "user",
-                          Password = "user01".ToSha256(),
+                          Password = "1234".ToSha256(),
                           Role = Role.User
 
                       }
