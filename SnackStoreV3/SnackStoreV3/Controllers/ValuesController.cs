@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SnackStoreV3.Domain.Interfaces;
 using SnackStoreV3.Domain.Models;
+using SnackStoreV3.Dto;
 using SnackStoreV3.Models;
 using SnackStoreV3.Repository;
 using SnackStoreV3.Repository.DTO;
@@ -18,12 +21,15 @@ namespace SnackStoreV3.Controllers
     {
         private StoreDbContext _context;
         private ISnackRepository _repoSnack;
+        private ILogPriceRepository _logPrice;
         private IValidator<SnackModel> _entityToValidate;
-        public ValuesController(StoreDbContext context, ISnackRepository repoSnack, IValidator<SnackModel> entityToValidate)
+        public ValuesController(StoreDbContext context, ISnackRepository repoSnack, IValidator<SnackModel> entityToValidate,
+            ILogPriceRepository logPrice)
         {
             _context = context;
             _repoSnack = repoSnack;
             _entityToValidate =entityToValidate;
+            _logPrice = logPrice;
         }
 
         [HttpGet]
@@ -49,7 +55,7 @@ namespace SnackStoreV3.Controllers
 
 
         [HttpGet]
-        [Route("Snack")]
+        [Route("SearchSnackByName")]
         public async Task<IActionResult> GetSnackByName ([FromQuery] string name)
         {
 
@@ -68,6 +74,8 @@ namespace SnackStoreV3.Controllers
 
         // POST api/values
         [HttpPost]
+        [Route("AddSnacks")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Post(CreateSnackDTO obj)
         {
             List<string> errorList = new List<string>();
@@ -95,6 +103,8 @@ namespace SnackStoreV3.Controllers
 
         // DELETE api/values/5
         [HttpDelete]
+        [Route("RemoveSnacks")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var product = await _repoSnack.GetSnacksById(id);
@@ -106,7 +116,8 @@ namespace SnackStoreV3.Controllers
         }
         // PUT api/values/5
         [HttpPut]
-        [Route("price")]
+        [Route("ModifiedPrice")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Price([FromQuery]int id, double newPrice)
         {
             var product = await _repoSnack.GetSnacksById(id);
@@ -114,7 +125,26 @@ namespace SnackStoreV3.Controllers
 
             
            await _repoSnack.UpdatePriceSnack(product,newPrice);
+            await _logPrice.ChangePrice(product.snackName, product.snackPrice, newPrice);
             return Ok();
+
+        }
+
+
+
+        [HttpGet]
+        [Route("GetLogPrices")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetChangePriceLog()
+        {
+
+            var result = await _logPrice.GetLogChangePrices();
+            return Ok(new ResponseLogsDto
+            {
+                Code = HttpStatusCode.OK,
+                Data = result
+
+            }) ;
 
         }
 
@@ -125,7 +155,7 @@ namespace SnackStoreV3.Controllers
         //    var product = await _repoSnack.GetSnacksById(id);
         //    if (product == null) return NotFound();
 
-           
+
 
 
 

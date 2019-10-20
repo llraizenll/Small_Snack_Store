@@ -43,6 +43,7 @@ namespace SnackStoreV3
        
             services.AddScoped<ISnackRepository, SnackRepository>();
             services.AddScoped<IUserAccountRepository, UserAccountRepository>();
+            services.AddScoped<ILogPriceRepository, LogPriceRepository>();
             services.AddSingleton<ItokenFactory, JwtFactory>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -95,8 +96,9 @@ namespace SnackStoreV3
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseMvc();
-
+            
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 

@@ -121,6 +121,16 @@ namespace SnackStoreV3.Repository
 
                  );
 
+                //context.LogChangePrices.AddRange(
+                //    new LogChangePricesModel { 
+                //        IdLogPrice = 1,
+                //        OldPrice = 50,
+                //        NewPrice = 100,
+                //        ProductName = "Prueba"
+                    
+                //    }
+                //    );
+
                 context.SaveChanges();
 
 

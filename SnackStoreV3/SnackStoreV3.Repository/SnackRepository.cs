@@ -16,6 +16,7 @@ namespace SnackStoreV3.Repository
     public class SnackRepository : MainStoreRepository<SnackModel>, ISnackRepository
     {
         StoreDbContext _context;
+        LogPriceRepository logChangePrice;
         public SnackRepository(StoreDbContext context) : base(context)
         {
             _context = context;
@@ -64,16 +65,14 @@ namespace SnackStoreV3.Repository
 
         public async Task UpdatePriceSnack(SnackModel snack, double newPrice)
         {
-
-            if (newPrice > 0) {
-                double lastPrice = snack.snackPrice;
-                snack.snackPrice = newPrice;
+            var oldPrice = snack.snackPrice;
+            var name = snack.snackName;
+            snack.snackPrice = newPrice;
                 Update(snack);
-                await SaveAsync();
-            }else
-            {
-                return;
-            }
+            
+            await SaveAsync();
+            //await logChangePrice.ChangePrice(name, oldPrice, newPrice);
+
         }
 
     }
